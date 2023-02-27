@@ -1,11 +1,19 @@
 // unfortunately you need to use include! here
 // to get it to work, because you can't
-// implement a trait on an external crate (no example yet)
+// implement a trait on an external crate
 include!("../../definitions/src/lib.rs");
 
 use std::error::Error;
 
 use libloading::Library;
+
+// IExample is implemented here, instead of the definitions
+// commenting this line out will make the application not compile
+impl IExample for Example {
+    fn print(&self) {
+        println!("Hello, {}! You are {} years old!", self.m_name, self.m_age);
+    }
+}
 
 pub fn main() -> Result<(), Box<dyn Error>> {
     let lib = unsafe { Library::new("plugin_example").map_err(|_| "couldnt find plugin")? };
@@ -30,8 +38,11 @@ pub fn main() -> Result<(), Box<dyn Error>> {
     println!("callback count: {}", interface.get_callbacks().len());
     println!();
 
-    println!("hello (should be true) : {}", interface.get_callbacks()[0]("hello"));
-    println!("world (should be false): {}", interface.get_callbacks()[0]("world"));
+    let user = Example {
+        m_name: "John Doe".to_string(),
+        m_age: 42,
+    };
+    interface.get_callbacks()[0](&user);
     println!();
 
     println!("running dll's shutdown");

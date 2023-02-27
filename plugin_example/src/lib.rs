@@ -1,7 +1,8 @@
 include!("../../definitions/src/lib.rs");
 
-pub fn contains_hello(str: &str) -> bool {
-    str.contains("hello")
+pub fn contains_hello(example: &dyn IExample) -> bool {
+    example.print();
+    true
 }
 
 pub fn init(interface: &mut dyn IInterface) {
