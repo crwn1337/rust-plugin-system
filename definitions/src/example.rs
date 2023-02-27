@@ -1,6 +1,7 @@
 use std::ops::{Deref, DerefMut};
 
 #[repr(C)]
+#[derive(Default)]
 pub struct Example {
     pub m_name: String,
     pub m_age: u8,
@@ -9,15 +10,6 @@ pub struct Example {
 // the trait is implemented in the application
 pub trait IExample {
     fn print(&self);
-}
-
-impl Default for Example {
-    fn default() -> Self {
-        Self {
-            m_name: String::new(),
-            m_age: 0,
-        }
-    }
 }
 
 impl Deref for dyn IExample {

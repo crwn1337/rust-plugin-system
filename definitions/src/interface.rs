@@ -1,4 +1,5 @@
 #[repr(C)]
+#[derive(Default)]
 pub struct Interface {
     m_callbacks: Vec<fn(&dyn crate::IExample) -> bool>,
 }
@@ -21,13 +22,5 @@ impl IInterface for Interface {
 
     fn get_callbacks(&self) -> &Vec<fn(&dyn crate::IExample) -> bool> {
         &self.m_callbacks
-    }
-}
-
-impl Interface {
-    pub fn new() -> Self {
-        Self {
-            m_callbacks: Vec::new(),
-        }
     }
 }

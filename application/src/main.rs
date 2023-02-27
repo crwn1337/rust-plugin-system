@@ -22,7 +22,7 @@ pub fn main() -> Result<(), Box<dyn Error>> {
             .map_err(|_| "couldnt find dll_init")?
     };
 
-    let mut interface = Interface::new();
+    let mut interface = Interface::default();
 
     let plugin = plugin_info();
     println!("plugin name: {}", plugin.m_name);
