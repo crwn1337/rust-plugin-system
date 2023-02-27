@@ -3,7 +3,7 @@ use std::ops::{Deref, DerefMut};
 #[repr(C)]
 pub struct Example {
     pub m_name: String,
-    pub m_age: u8
+    pub m_age: u8,
 }
 
 // the trait is implemented in the application
@@ -15,7 +15,7 @@ impl Default for Example {
     fn default() -> Self {
         Self {
             m_name: String::new(),
-            m_age: 0
+            m_age: 0,
         }
     }
 }
