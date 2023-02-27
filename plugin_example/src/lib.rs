@@ -1,7 +1,6 @@
-// unfortunately you need to use include! here
 include!("../../definitions/src/lib.rs");
 
-pub fn contains_hello(str: String) -> bool {
+pub fn contains_hello(str: &str) -> bool {
     str.contains("hello")
 }
 

@@ -30,8 +30,8 @@ pub fn main() -> Result<(), Box<dyn Error>> {
     println!("callback count: {}", interface.get_callbacks().len());
     println!();
 
-    println!("hello (should be true) : {}", interface.get_callbacks()[0]("hello".to_string()));
-    println!("world (should be false): {}", interface.get_callbacks()[0]("world".to_string()));
+    println!("hello (should be true) : {}", interface.get_callbacks()[0]("hello"));
+    println!("world (should be false): {}", interface.get_callbacks()[0]("world"));
     println!();
 
     println!("running dll's shutdown");
