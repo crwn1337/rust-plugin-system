@@ -16,7 +16,7 @@ impl IInterface for Interface {
 
     fn remove_callback(&mut self, callback: fn(&str) -> bool) {
         self.m_callbacks
-            .retain(|c| !std::ptr::eq(*c as *const (), callback as *const ()));
+            .retain(|c| *c as *const () != callback as *const ());
     }
 
     fn get_callbacks(&self) -> &Vec<fn(&str) -> bool> {
