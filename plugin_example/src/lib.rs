@@ -1,7 +1,7 @@
 include!("../../definitions/src/lib.rs");
 
 pub fn example_callback(example_struct: &mut dyn IExample) -> bool {
-    example_struct.as_mut().m_age = 23;
+    example_struct.m_age = 23;
     example_struct.print();
     true
 }
