@@ -7,7 +7,17 @@ pub struct Example {
 
 // the trait is implemented in the application
 pub trait IExample {
-    fn get_ref(&self) -> &Example;
-    fn get_mut(&mut self) -> &mut Example;
     fn print(&self);
+}
+
+impl AsRef<Example> for dyn IExample + '_ {
+    fn as_ref(&self) -> &Example {
+        unsafe { &*(self as *const dyn IExample as *const Example) }
+    }
+}
+
+impl AsMut<Example> for dyn IExample + '_ {
+    fn as_mut(&mut self) -> &mut Example {
+        unsafe { &mut *(self as *mut dyn IExample as *mut Example) }
+    }
 }

@@ -10,11 +10,6 @@ use libloading::Library;
 // IExample is implemented here, instead of in the definitions
 // commenting this line out will make the application not compile
 impl IExample for Example {
-    // ⌄⌄ for plugins ⌄⌄
-    #[rustfmt::skip]    fn get_ref(&self) -> &Example { self }
-    #[rustfmt::skip]    fn get_mut(&mut self) -> &mut Example { self }
-    // ^^ for plugins ^^
-
     fn print(&self) {
         println!("hello {}! you are {} years old!", self.m_name, self.m_age);
     }
