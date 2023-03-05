@@ -17,14 +17,13 @@ impl IExample for Example {
 
 pub fn main() -> Result<(), Box<dyn Error>> {
     let lib = unsafe { Library::new("plugin_example").map_err(|_| "couldnt find plugin")? };
-    let plugin_info = unsafe {
-        lib.get::<fn() -> &'static Plugin>(b"dll_info")
+    let plugin = unsafe {
+        lib.get::<&Plugin>(b"dll_info")
             .map_err(|_| "couldnt find dll_init")?
     };
 
     let mut interface = Interface::default();
 
-    let plugin = plugin_info();
     println!("plugin name: {}", plugin.m_name);
     println!("authors: {:?}", plugin.m_authors);
     println!();
