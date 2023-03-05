@@ -1,6 +1,7 @@
 include!("../../definitions/src/lib.rs");
 
-pub fn example_callback(example_struct: &dyn IExample) -> bool {
+pub fn example_callback(example_struct: &mut dyn IExample) -> bool {
+    example_struct.get_mut().m_age = 23u8;
     example_struct.print();
     true
 }

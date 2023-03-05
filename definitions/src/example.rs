@@ -1,5 +1,3 @@
-use std::ops::{Deref, DerefMut};
-
 #[repr(C)]
 #[derive(Default)]
 pub struct Example {
@@ -9,18 +7,7 @@ pub struct Example {
 
 // the trait is implemented in the application
 pub trait IExample {
+    fn get_ref(&self) -> &Example;
+    fn get_mut(&mut self) -> &mut Example;
     fn print(&self);
-}
-
-impl Deref for dyn IExample {
-    type Target = Example;
-    fn deref(&self) -> &Self::Target {
-        unsafe { &*(self as *const dyn IExample as *const Example) }
-    }
-}
-
-impl DerefMut for dyn IExample {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { &mut *(self as *mut dyn IExample as *mut Example) }
-    }
 }
