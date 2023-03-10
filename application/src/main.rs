@@ -41,7 +41,9 @@ pub fn main() -> Result<(), Box<dyn Error>> {
         m_name: "john doe".to_string(),
         m_age: 42,
     };
-    interface.get_callbacks()[0](&mut user);
+    interface.get_callbacks().iter().for_each(|cb| {
+        cb(&mut user);
+    });
     println!();
 
     println!("running dll's shutdown");
