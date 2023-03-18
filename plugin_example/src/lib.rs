@@ -1,6 +1,6 @@
 include!("../../definitions/src/lib.rs");
 
-callback!(example_callback, example_struct, {
+example_callback!(example_callback, example_struct, {
     example_struct.m_age = 23;
     example_struct.print();
     true
@@ -16,7 +16,7 @@ interface!(shutdown, interface, {
     println!("removed callback(s) from the dll!");
 });
 
-declare_plugin!(
+plugin!(
     "plugin_example",
     &["crwn1337", "another author"],
     Some(init),

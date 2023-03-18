@@ -9,7 +9,7 @@ pub struct Plugin {
 }
 
 #[macro_export]
-macro_rules! declare_plugin {
+macro_rules! plugin {
     ($name:expr, $authors:expr, $init:expr, $shutdown:expr) => {
         #[no_mangle]
         pub static dll_info: $crate::Plugin = $crate::Plugin {

@@ -29,17 +29,17 @@ impl IInterface for Interface {
 
 #[macro_export]
 macro_rules! interface {
-    ($name:ident, $example_struct:ident, $($body:tt)*) => {
-        fn $name($example_struct: &mut dyn $crate::IInterface) {
+    ($name:ident, $the_struct:ident, $($body:tt)*) => {
+        fn $name($the_struct: &mut dyn $crate::IInterface) {
             $($body)*
         }
     };
 }
 
 #[macro_export]
-macro_rules! callback {
-    ($name:ident, $example_struct:ident, $($body:tt)*) => {
-        fn $name($example_struct: &mut dyn $crate::IExample) -> bool {
+macro_rules! example_callback {
+    ($name:ident, $the_struct:ident, $($body:tt)*) => {
+        fn $name($the_struct: &mut dyn $crate::IExample) -> bool {
             $($body)*
         }
     };
