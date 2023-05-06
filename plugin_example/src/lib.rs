@@ -1,20 +1,20 @@
 include!("../../definitions/src/lib.rs");
 
-example_callback!(example_callback, example_struct, {
-    example_struct.m_age = 23;
-    example_struct.print();
+pub fn example_callback(example: &mut dyn IExample) -> bool {
+    example.m_age = 23;
+    example.print();
     true
-});
+}
 
-interface!(init, interface, {
+pub fn init(interface: &mut dyn IInterface) {
     interface.add_callback(example_callback);
     println!("added callback(s) from the dll!");
-});
+}
 
-interface!(shutdown, interface, {
+pub fn shutdown(interface: &mut dyn IInterface) {
     interface.remove_callback(example_callback);
-    println!("removed callback(s) from the dll!");
-});
+    println!("added callback(s) from the dll!");
+}
 
 plugin!(
     "plugin_example",

@@ -26,21 +26,3 @@ impl IInterface for Interface {
         &self.m_callbacks
     }
 }
-
-#[macro_export]
-macro_rules! interface {
-    ($name:ident, $the_struct:ident, $($body:tt)*) => {
-        fn $name($the_struct: &mut dyn $crate::IInterface) {
-            $($body)*
-        }
-    };
-}
-
-#[macro_export]
-macro_rules! example_callback {
-    ($name:ident, $the_struct:ident, $($body:tt)*) => {
-        fn $name($the_struct: &mut dyn $crate::IExample) -> bool {
-            $($body)*
-        }
-    };
-}
