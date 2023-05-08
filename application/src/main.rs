@@ -3,7 +3,7 @@
 // implement a trait on an external crate
 include!("../../definitions/src/lib.rs");
 
-use std::error::Error;
+use anyhow::Result;
 
 use libloading::Library;
 
@@ -15,12 +15,9 @@ impl IExample for Example {
     }
 }
 
-pub fn main() -> Result<(), Box<dyn Error>> {
-    let lib = unsafe { Library::new("plugin_example").map_err(|_| "couldnt find plugin")? };
-    let plugin = unsafe {
-        lib.get::<&Plugin>(b"dll_info")
-            .map_err(|_| "couldnt find dll_init")?
-    };
+pub fn main() -> Result<()> {
+    let lib = unsafe { Library::new("plugin_example")? };
+    let plugin = unsafe { lib.get::<&Plugin>(b"dll_info")? };
 
     let mut interface = Interface::default();
 
@@ -41,9 +38,9 @@ pub fn main() -> Result<(), Box<dyn Error>> {
         m_name: "john doe".to_string(),
         m_age: 42,
     };
-    interface.get_callbacks().iter().for_each(|cb| {
+    for cb in interface.get_callbacks() {
         cb(&mut user);
-    });
+    }
     println!();
 
     println!("running dll's shutdown");
