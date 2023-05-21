@@ -18,7 +18,7 @@ pub trait IPlugin {
 macro_rules! plugin {
     ($name:expr, $authors:expr, $init:expr, $shutdown:expr, $state:expr) => {
         #[no_mangle]
-        pub fn dll_info() -> crate::Plugin {
+        pub fn __dll_info() -> crate::Plugin {
             crate::Plugin {
                 m_name: $name,
                 m_authors: $authors,

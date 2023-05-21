@@ -12,6 +12,7 @@ an example plugin
 
 ## pros
 * basically 0 overhead (since its pure rust)
+* structure states, so no global variables
 * you get to use the entire rust standard library
 * you get to use any external crates rust provides
 * the rust compiler should help with any errors at compile time

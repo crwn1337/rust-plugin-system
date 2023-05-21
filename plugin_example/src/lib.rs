@@ -1,23 +1,29 @@
 include!("../../definitions/src/lib.rs");
 
 pub struct State {
-    pub test_state: u32,
+    pub m_test: u32,
 }
 
 impl IPlugin for State {
     fn callback(&mut self, example: &mut dyn IExample) -> bool {
         example.m_age = 23;
-        println!("{}", self.test_state);
+        println!("printing from the plugin: {}", self.m_test);
         example.print();
         true
     }
 }
 
-pub fn init(_: &mut dyn IInterface) {
+pub fn init(interface: &mut dyn IInterface) {
+    // example of what you might want to do with an interface
+    interface.inc_counter();
+
     println!("init called!");
 }
 
-pub fn shutdown(_: &mut dyn IInterface) {
+pub fn shutdown(interface: &mut dyn IInterface) {
+    // example of what you might want to do with an interface
+    interface.dec_counter();
+
     println!("shutdown called!");
 }
 
@@ -26,5 +32,6 @@ plugin!(
     &["crwn1337", "another author"],
     Some(init),
     Some(shutdown),
-    State { test_state: 0 }
+    State { m_test: 1337 }
 );
+

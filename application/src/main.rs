@@ -17,12 +17,14 @@ impl IExample for Example {
 
 pub fn main() -> Result<()> {
     let lib = unsafe { Library::new("plugin_example")? };
-    let mut plugin = unsafe { lib.get::<fn() -> Plugin>(b"dll_info")?() };
+    let plugin = unsafe { lib.get::<fn() -> Plugin>(b"__dll_info")? };
+    let mut plugin = plugin();
 
     let mut interface = Interface::default();
 
     println!("plugin name: {}", plugin.m_name);
     println!("authors: {:?}", plugin.m_authors);
+    println!("counter: {}", interface.m_counter);
     println!();
 
     println!("running dll's init");
@@ -30,6 +32,7 @@ pub fn main() -> Result<()> {
         Some(init) => init(&mut interface),
         None => println!("no init function?"),
     }
+    println!("counter: {}", interface.m_counter);
 
     let mut user = Example {
         m_name: "john doe".to_string(),
@@ -43,6 +46,7 @@ pub fn main() -> Result<()> {
         Some(shutdown) => shutdown(&mut interface),
         None => println!("no shutdown function?"),
     }
+    println!("counter: {}", interface.m_counter);
     println!();
 
     println!("finished executing");
