@@ -17,7 +17,7 @@ impl IExample for Example {
 
 pub fn main() -> Result<()> {
     let lib = unsafe { Library::new("plugin_example")? };
-    let plugin = unsafe { lib.get::<&Plugin>(b"dll_info")? };
+    let mut plugin = unsafe { lib.get::<fn() -> Plugin>(b"dll_info")?() };
 
     let mut interface = Interface::default();
 
@@ -31,16 +31,11 @@ pub fn main() -> Result<()> {
         None => println!("no init function?"),
     }
 
-    println!("callback count: {}", interface.get_callbacks().len());
-    println!();
-
     let mut user = Example {
         m_name: "john doe".to_string(),
         m_age: 42,
     };
-    for cb in interface.get_callbacks() {
-        cb(&mut user);
-    }
+    plugin.m_state.callback(&mut user);
     println!();
 
     println!("running dll's shutdown");
@@ -48,7 +43,6 @@ pub fn main() -> Result<()> {
         Some(shutdown) => shutdown(&mut interface),
         None => println!("no shutdown function?"),
     }
-    println!("callback count: {}", interface.get_callbacks().len());
     println!();
 
     println!("finished executing");
